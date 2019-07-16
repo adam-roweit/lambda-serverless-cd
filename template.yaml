@@ -14,7 +14,7 @@ Resources:
   GetUsersFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: lambda/
+      CodeUri: src/
       Handler: app.lambdaHandler
       Runtime: nodejs10.x
   
@@ -24,12 +24,10 @@ Resources:
       StageName: dev
       EndpointConfiguration: REGIONAL
       DefinitionBody:
-        swagger: '2.0'
+        swagger: 2.0
         info:
           version: '0.1'
           title: Esource Sample Response API
-        schemes:
-          - https
         paths:
           /users:
             get:
@@ -43,27 +41,6 @@ Resources:
                     type: array
                     items:
                       $ref: '#/definitions/User'
-              x-amazon-apigateway-integration:
-                uri: 
-                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsersFunction.Arn}/invocations
-                passthroughBehavior: when_no_match
-                httpMethod: POST
-                type: aws_proxy
-            post:
-              responses:
-                '201':
-                  description: The request was successful.
-              produces:
-                - application/json
-              consumes:
-                - application/x-www-form-urlencoded
-              parameters:
-                - name: id
-                  type: number
-                  in: formData
-                - name: name
-                  type: string
-                  in: formData
               x-amazon-apigateway-integration:
                 uri: 
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsersFunction.Arn}/invocations
@@ -87,7 +64,8 @@ Resources:
                     items:
                       $ref: '#/definitions/User'
               x-amazon-apigateway-integration:
-                uri: '${get_users_function_arn}'
+                uri: 
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsersFunction.Arn}/invocations
                 passthroughBehavior: when_no_match
                 httpMethod: POST
                 type: aws_proxy
