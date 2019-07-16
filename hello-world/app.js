@@ -1,7 +1,22 @@
-// const axios = require('axios')
+const axios = require('axios')
 // const url = 'http://checkip.amazonaws.com/';
-let response;
-
+let users = [{
+    'id': 1,
+    'Name': 'Adam'
+  },
+  {
+    'id': 2,
+    'Name': 'Paul'
+  },
+  {
+    'id': 3,
+    'Name': 'Steve'
+  },
+  {
+    'id': 4,
+    'Name': 'Gary'
+  }
+];
 /**
  *
  * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
@@ -16,18 +31,32 @@ let response;
  */
 exports.lambdaHandler = async (event, context) => {
     try {
-        // const ret = await axios(url);
-        response = {
-            'statusCode': 200,
-            'body': JSON.stringify({
-                message: 'Hello World from RoweIT!',
-                // location: ret.data.trim()
-            })
+        console.log('Received event:', JSON.stringify(event, null, 2));
+        let responseBody = '';
+      
+        if (event.pathParameters && event.pathParameters.id) {
+          responseBody = getUser(parseInt(event.pathParameters.id));
+        } else {
+          responseBody = getAllUsers();
+        }
+      
+        return response = {
+          statusCode: 200,
+          body: JSON.stringify(responseBody),
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
         }
     } catch (err) {
         console.log(err);
         return err;
     }
-
-    return response
 };
+
+const getAllUsers = () => {
+    return users;
+  };
+  
+  const getUser = (id) => {
+    return users.filter(user => user.id === id);
+  };
