@@ -1,5 +1,3 @@
-const axios = require('axios')
-// const url = 'http://checkip.amazonaws.com/';
 let users = [{
     'id': 1,
     'Name': 'Adam'
