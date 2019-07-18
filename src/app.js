@@ -76,5 +76,7 @@ const getAllUsers = () => {
 
     if(filteredUsers.length > 0) return filteredUsers
 
-    return "User not found!";
+    return {
+      'message': 'User not found!'
+    };
   };
