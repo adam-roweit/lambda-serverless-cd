@@ -14,16 +14,19 @@ Parameters:
   DomainName:
     Type: String
     Default: api.esource.roweitdev.co.uk
+  WildcardDomainName:
+    Type: String
+    Default: '*.esource.roweitdev.co.uk'
   HostedZoneName:
     Type: String
-    Default: esource.roweitdev.co.uk
+    Default: esource.roweitdev.co.uk.
   HostedZoneId:
     Type: String
     Default: Z3H3DJ5LAUWBA6
 
 Resources:
   GetUsersFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/
       Handler: app.lambdaHandler
@@ -107,11 +110,14 @@ Resources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: 
-            !Join ['*.', !Ref DomainName]
+      DomainName: !Ref WildcardDomainName
+      SubjectAlternativeNames:
+        - !Ref WildcardDomainName
+        - !Ref HostedZoneName
       DomainValidationOptions:
-            - DomainName: !Ref DomainName
-              ValidationDomain: !Ref DomainName
+        - DomainName: !Ref DomainName
+          ValidationDomain: !Ref DomainName
+      ValidationMethod: 'DNS'
 
   APIDomainName:
     Type: AWS::ApiGateway::DomainName
