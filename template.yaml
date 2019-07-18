@@ -104,10 +104,22 @@ Resources:
       FunctionName: !Ref GetUsersFunction
       Principal: apigateway.amazonaws.com
 
+  Certificate:
+  Type: AWS::CertificateManager::Certificate
+  Properties:
+    DomainName: 
+                Fn::Join:
+                  - ""
+                  - "*." 
+                  - !Ref DomainName
+    DomainValidationOptions:
+          - DomainName: !Ref DomainName
+            ValidationDomain: !Ref DomainName
+
   APIDomainName:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      CertificateArn: arn:aws:acm:eu-west-2:...:certificate/...
+      CertificateArn: !Ref Certificate
       DomainName: !Ref DomainName
 
   APIBasePathMapping:
