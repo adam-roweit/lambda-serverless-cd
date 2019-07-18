@@ -124,6 +124,9 @@ Resources:
     Properties:
       RegionalCertificateArn: !Ref Certificate
       DomainName: !Ref DomainName
+      EndpointConfiguration:
+        Types:
+          - 'REGIONAL'
 
   APIBasePathMapping:
     Type: AWS::ApiGateway::BasePathMapping
