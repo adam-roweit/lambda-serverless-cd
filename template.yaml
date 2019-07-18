@@ -10,6 +10,17 @@ Globals:
   Function:
     Timeout: 3
 
+Parameters:
+  DomainName:
+    Type: String
+    Default: api.esource.roweitdev.co.uk
+  HostedZoneName:
+    Type: String
+    Default: esource.roweitdev.co.uk
+  HostedZoneId:
+    Type: String
+    Default: Z3H3DJ5LAUWBA6
+
 Resources:
   GetUsersFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -18,7 +29,7 @@ Resources:
       Handler: app.lambdaHandler
       Runtime: nodejs10.x
   
-  MyApi:
+  ServerlessRestApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: dev
@@ -86,9 +97,33 @@ Resources:
   GetUsersLambdaPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
-    - MyApi
+    - ServerlessRestApi
     - GetUsersFunction
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Ref GetUsersFunction
       Principal: apigateway.amazonaws.com
+
+  APIDomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      CertificateArn: arn:aws:acm:eu-west-2:...:certificate/...
+      DomainName: !Ref DomainName
+
+  APIBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName: !Ref APIDomainName
+      RestApiId: !Ref ServerlessRestApi
+      Stage: dev
+
+  APIDomain:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName: !Ref HostedZoneName
+      RecordSets:
+      - Name: !Ref DomainName
+        Type: A
+        AliasTarget:
+          DNSName: !GetAtt APIDomainName.DistributionDomainName
+          HostedZoneId: !Ref HostedZoneId
