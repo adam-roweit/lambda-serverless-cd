@@ -115,8 +115,8 @@ Resources:
       #   - !Ref WildcardDomainName
       #     !Ref HostedZoneName
       DomainValidationOptions:
-        - DomainName: !Ref DomainName
-          ValidationDomain: !Ref DomainName
+        - DomainName: !Ref WildcardDomainName
+          ValidationDomain: !Ref WildcardDomainName
       ValidationMethod: 'DNS'
 
   APIDomainName:
