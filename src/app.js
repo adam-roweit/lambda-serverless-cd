@@ -72,5 +72,9 @@ const getAllUsers = () => {
   };
   
   const getUser = (id) => {
-    return users.filter(user => user.id === id);
+    let filteredUsers = users.filter(user => user.id === id);
+
+    if(filteredUsers.length > 0) return filteredUsers
+
+    return "User not found!";
   };
