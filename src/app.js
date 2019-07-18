@@ -1,6 +1,7 @@
 let users = [{
     'id': 1,
-    'Name': 'Adam'
+    'Name': 'Adam',
+    'Admin': true  
   },
   {
     'id': 2,
