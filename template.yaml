@@ -110,10 +110,10 @@ Resources:
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Ref WildcardDomainName
+      DomainName: !Ref DomainName
       # SubjectAlternativeNames:
       #   - !Ref WildcardDomainName
-      #   - !Ref HostedZoneName
+      #     !Ref HostedZoneName
       DomainValidationOptions:
         - DomainName: !Ref DomainName
           ValidationDomain: !Ref DomainName
