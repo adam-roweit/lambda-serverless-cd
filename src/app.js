@@ -5,15 +5,18 @@ let users = [{
   },
   {
     'id': 2,
-    'Name': 'Paul'
+    'Name': 'Paul',
+    'Admin': true  
   },
   {
     'id': 3,
-    'Name': 'Steve'
+    'Name': 'Steve',
+    'Admin': true  
   },
   {
     'id': 4,
-    'Name': 'Gary'
+    'Name': 'Gary',
+    'Admin': true  
   },
   {
     'id': 5,
