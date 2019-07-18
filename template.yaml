@@ -140,5 +140,5 @@ Resources:
       - Name: !Ref DomainName
         Type: A
         AliasTarget:
-          DNSName: !GetAtt APIDomainName.DistributionDomainName
+          DNSName: !GetAtt APIDomainName.RegionalDomainName
           HostedZoneId: !Ref HostedZoneId
