@@ -82,3 +82,13 @@ Resources:
                 description: Name of the user
             required:
               - tip
+
+  GetUsersLambdaPermission:
+    Type: AWS::Lambda::Permission
+    DependsOn:
+    - MyApi
+    - GetUsersFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref GetUsersFunction
+      Principal: apigateway.amazonaws.com
