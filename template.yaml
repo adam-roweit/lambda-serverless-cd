@@ -105,16 +105,13 @@ Resources:
       Principal: apigateway.amazonaws.com
 
   Certificate:
-  Type: AWS::CertificateManager::Certificate
-  Properties:
-    DomainName: 
-                Fn::Join:
-                  - ""
-                  - "*." 
-                  - !Ref DomainName
-    DomainValidationOptions:
-          - DomainName: !Ref DomainName
-            ValidationDomain: !Ref DomainName
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: 
+            !Join ['*.', !Ref DomainName]
+      DomainValidationOptions:
+            - DomainName: !Ref DomainName
+              ValidationDomain: !Ref DomainName
 
   APIDomainName:
     Type: AWS::ApiGateway::DomainName
