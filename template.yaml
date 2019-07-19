@@ -14,18 +14,23 @@ Parameters:
   DomainName:
     Type: String
     Default: api.esource.roweitdev.co.uk
+    Description: Domain name to call the api from.
   WildcardDomainName:
     Type: String
     Default: '*.esource.roweitdev.co.uk'
+    Description: Used to provide the certificate to validate all api domains.
   HostedZoneName:
     Type: String
     Default: esource.roweitdev.co.uk.
+    Description: Name of the desired hosted zone.
   HostedZoneId:
     Type: String
     Default: Z3H3DJ5LAUWBA6
+    Description: Hosted zone id of the desired hosted zone.
   ApiBasePath:
     Type: String
     Default: v1
+    Description: Base path of the api. 'v1' - example.co.uk/v1/endpoints
 
 Resources:
   GetUsersFunction:
@@ -114,9 +119,6 @@ Resources:
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: !Ref WildcardDomainName
-      # SubjectAlternativeNames:
-      #   - !Ref WildcardDomainName
-      #     !Ref HostedZoneName
       DomainValidationOptions:
         - DomainName: !Ref WildcardDomainName
           ValidationDomain: !Ref WildcardDomainName
