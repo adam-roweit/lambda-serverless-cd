@@ -122,7 +122,7 @@ Resources:
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: !ImportValue Certificate
+      RegionalCertificateArn: !Ref Certificate
       DomainName: !Ref DomainName
       EndpointConfiguration:
         Types: [REGIONAL]
@@ -138,7 +138,7 @@ Resources:
   APIDomain:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneName: !ImportValue HostedZoneName
+      HostedZoneName: !Ref HostedZoneName
       RecordSets:
       - Name: !Ref DomainName
         Type: A
