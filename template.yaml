@@ -126,9 +126,7 @@ Resources:
     DependsOn: ServerlessRestAPI
 
   APIBasePathMapping:
-    DependsOn: 
-    - ServerlessRestAPI
-    - APIDeployment
+    DependsOn: APIDeployment
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref GatewayDomain
