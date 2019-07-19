@@ -119,29 +119,29 @@ Resources:
           ValidationDomain: !Ref WildcardDomainName
       ValidationMethod: 'DNS'
 
-  APIDomainName:
+  GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: !Ref Certificate
+      RegionalCertificateArn: !ImportValue Certificate
       DomainName: !Ref DomainName
       EndpointConfiguration:
-        Types:
-          - 'REGIONAL'
+        Types: [REGIONAL]
 
   APIBasePathMapping:
+    DependsOn: [ServerlessRestApi]
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
-      DomainName: !Ref APIDomainName
+      DomainName: !Ref GatewayDomain
       RestApiId: !Ref ServerlessRestApi
       Stage: dev
 
   APIDomain:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZoneName: !Ref HostedZoneName
+      HostedZoneName: !ImportValue HostedZoneName
       RecordSets:
       - Name: !Ref DomainName
         Type: A
         AliasTarget:
-          DNSName: !GetAtt APIDomainName.RegionalDomainName
-          HostedZoneId: !Ref HostedZoneId
+          DNSName: !GetAtt GatewayDomain.RegionalDomainName
+          HostedZoneId: !GetAtt GatewayDomain.RegionalHostedZoneId
