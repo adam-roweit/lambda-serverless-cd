@@ -124,7 +124,7 @@ Resources:
     Properties:
       DomainName: !Ref GatewayDomain
       RestApiId: !Ref ServerlessRestAPI
-      Stage: dev
+
       BasePath: !Ref ApiBasePath
 
   APIDomain:
