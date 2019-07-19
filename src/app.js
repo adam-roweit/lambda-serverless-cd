@@ -29,6 +29,10 @@ let users = [{
   {
     'id': 7,
     'Name': 'Test User 3'
+  },
+  {
+    'id': 8,
+    'Name': 'Test User 4'
   }
 ];
 /**
