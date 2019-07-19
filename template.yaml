@@ -113,7 +113,7 @@ Resources:
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: arn:aws:acm:eu-west-2:188413075412:certificate/2a4e65eb-137b-401d-be40-b338664b6c13
+      RegionalCertificateArn: '{{resolve:ssm:ESOURCE_api_certificate_arn:1}}'
       DomainName: !Ref DomainName
       EndpointConfiguration:
         Types: [REGIONAL]
