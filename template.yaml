@@ -108,7 +108,6 @@ Resources:
             required:
               - tip
 
-
   GetUsersLambdaPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
@@ -118,15 +117,6 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref GetUsersFunction
       Principal: apigateway.amazonaws.com
-
-  # Certificate:
-  #   Type: AWS::CertificateManager::Certificate
-  #   Properties:
-  #     DomainName: !Ref WildcardDomainName
-  #     DomainValidationOptions:
-  #       - DomainName: !Ref WildcardDomainName
-  #         ValidationDomain: !Ref WildcardDomainName
-  #     ValidationMethod: 'DNS'
 
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
