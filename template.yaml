@@ -118,14 +118,8 @@ Resources:
       EndpointConfiguration:
         Types: [REGIONAL]
 
-  APIDeployment:
-    Type: AWS::ApiGateway::Deployment
-    Properties:
-      RestApiId: !Ref ServerlessRestAPI
-    DependsOn: ServerlessRestAPI
-
   APIBasePathMapping:
-    DependsOn: APIDeployment
+    DependsOn: ServerlessRestAPIStage
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref GatewayDomain
