@@ -122,7 +122,6 @@ Resources:
     Type: AWS::ApiGateway::Deployment
     Properties:
       RestApiId: ServerlessRestAPI
-      StageName: dev
     DependsOn: ServerlessRestAPI
 
   APIBasePathMapping:
