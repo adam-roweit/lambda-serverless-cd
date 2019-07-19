@@ -1,4 +1,6 @@
-let users = [{
+let users = [
+  'First project!',
+  {
     'id': 1,
     'Name': 'Adam',
     'Admin': true  

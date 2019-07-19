@@ -13,7 +13,7 @@ Globals:
 Parameters:
   DomainName:
     Type: String
-    Default: api.esource.roweitdev.co.uk
+    Default: api1.esource.roweitdev.co.uk
     Description: Domain name to call the api from.
   WildcardDomainName:
     Type: String
@@ -49,7 +49,7 @@ Resources:
         swagger: '2.0'
         info:
           version: '0.1'
-          title: ESOURCE Sample Response API
+          title: ESOURCE Sample Response API 1
         schemes:
           - https
         paths:
@@ -119,19 +119,19 @@ Resources:
       FunctionName: !Ref GetUsersFunction
       Principal: apigateway.amazonaws.com
 
-  Certificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: !Ref WildcardDomainName
-      DomainValidationOptions:
-        - DomainName: !Ref WildcardDomainName
-          ValidationDomain: !Ref WildcardDomainName
-      ValidationMethod: 'DNS'
+  # Certificate:
+  #   Type: AWS::CertificateManager::Certificate
+  #   Properties:
+  #     DomainName: !Ref WildcardDomainName
+  #     DomainValidationOptions:
+  #       - DomainName: !Ref WildcardDomainName
+  #         ValidationDomain: !Ref WildcardDomainName
+  #     ValidationMethod: 'DNS'
 
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: !Ref Certificate
+      RegionalCertificateArn: '{{resolve:ssm-secure:ESOURCE_api_certificate_arn:1}}'
       DomainName: !Ref DomainName
       EndpointConfiguration:
         Types: [REGIONAL]
