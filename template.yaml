@@ -15,18 +15,10 @@ Parameters:
     Type: String
     Default: api1.esource.roweitdev.co.uk
     Description: Domain name to call the api from.
-  WildcardDomainName:
-    Type: String
-    Default: '*.esource.roweitdev.co.uk'
-    Description: Used to provide the certificate to validate all api domains.
   HostedZoneName:
     Type: String
     Default: esource.roweitdev.co.uk.
     Description: Name of the desired hosted zone.
-  HostedZoneId:
-    Type: String
-    Default: Z3H3DJ5LAUWBA6
-    Description: Hosted zone id of the desired hosted zone.
   ApiBasePath:
     Type: String
     Default: v1
@@ -40,7 +32,7 @@ Resources:
       Handler: app.lambdaHandler
       Runtime: nodejs10.x
   
-  ServerlessRestApi:
+  ServerlessRestAPI:
     Type: AWS::Serverless::Api
     Properties:
       StageName: dev
@@ -111,7 +103,7 @@ Resources:
   GetUsersLambdaPermission:
     Type: AWS::Lambda::Permission
     DependsOn:
-    - ServerlessRestApi
+    - ServerlessRestAPI
     - GetUsersFunction
     Properties:
       Action: lambda:InvokeFunction
@@ -126,12 +118,20 @@ Resources:
       EndpointConfiguration:
         Types: [REGIONAL]
 
+  APIDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: ServerlessRestAPI
+      StageName: dev
+
   APIBasePathMapping:
-    DependsOn: [ServerlessRestApi]
+    DependsOn: 
+    - ServerlessRestAPI
+    - APIDeployment
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref GatewayDomain
-      RestApiId: !Ref ServerlessRestApi
+      RestApiId: !Ref ServerlessRestAPI
       Stage: dev
       BasePath: !Ref ApiBasePath
 
