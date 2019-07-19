@@ -121,7 +121,7 @@ Resources:
   APIDeployment:
     Type: AWS::ApiGateway::Deployment
     Properties:
-      RestApiId: ServerlessRestAPI
+      RestApiId: !Ref ServerlessRestAPI
     DependsOn: ServerlessRestAPI
 
   APIBasePathMapping:
