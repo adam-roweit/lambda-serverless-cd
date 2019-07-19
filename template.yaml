@@ -119,12 +119,11 @@ Resources:
         Types: [REGIONAL]
 
   APIBasePathMapping:
-    DependsOn: ServerlessRestAPI
+    DependsOn: ServerlessRestAPIdevStage
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref GatewayDomain
       RestApiId: !Ref ServerlessRestAPI
-      Stage: dev
       BasePath: !Ref ApiBasePath
 
   APIDomain:
