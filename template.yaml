@@ -113,7 +113,7 @@ Resources:
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: arn:aws:acm:eu-west-2:188413075412:certificate/b12e08f1-725d-4417-b009-0ff966632762
+      RegionalCertificateArn: arn:aws:acm:eu-west-2:188413075412:certificate/2a4e65eb-137b-401d-be40-b338664b6c13
       DomainName: !Ref DomainName
       EndpointConfiguration:
         Types: [REGIONAL]
@@ -123,6 +123,7 @@ Resources:
     Properties:
       RestApiId: ServerlessRestAPI
       StageName: dev
+    DependsOn: ServerlessRestAPI
 
   APIBasePathMapping:
     DependsOn: 
