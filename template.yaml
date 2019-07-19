@@ -119,7 +119,7 @@ Resources:
         Types: [REGIONAL]
 
   APIBasePathMapping:
-    DependsOn: ServerlessRestAPIdevStage
+    DependsOn: ServerlessRestAPIdevStage #Required - Needs to wait for SAM to create stage before mapping {LOGICAL_API_NAME}{Stage}Stage
     Type: AWS::ApiGateway::BasePathMapping
     Properties:
       DomainName: !Ref GatewayDomain
