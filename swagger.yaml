@@ -2,6 +2,7 @@ swagger: '2.0'
 info:
   version: '0.1'
   title: 'ESOURCE Sample Response API #1'
+x-amazon-apigateway-api-key-source : "HEADER"
 schemes:
   - https
 paths:
@@ -23,6 +24,8 @@ paths:
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
+    security:
+        - api_key: []  
 
   '/users/{id}':
     get:
@@ -46,6 +49,9 @@ paths:
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
+    security:
+        - api_key: []  
+        
 definitions:
   User:
     type: object
@@ -59,3 +65,9 @@ definitions:
         description: Name of the user
     required:
       - tip
+
+securityDefinitions:
+      api_key:
+        type: "apiKey"
+        name: "x-api-key"
+        in: "header"
