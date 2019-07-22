@@ -23,6 +23,10 @@ Parameters:
     Type: String
     Default: v1
     Description: Base path of the api. 'v1' - example.co.uk/v1/endpoints
+  SSMCertificateArn:
+    Description: 'Arn of the esource certificate created via terraform.'
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: 'ESOURCE_api_certificate_arn'
 
 Resources:
   GetUsersFunction:
@@ -113,7 +117,7 @@ Resources:
   GatewayDomain:
     Type: AWS::ApiGateway::DomainName
     Properties:
-      RegionalCertificateArn: arn:aws:acm:eu-west-2:188413075412:certificate/5c1b21fc-7a4d-48f0-ae2a-e45afbe39d27
+      RegionalCertificateArn: !Ref SSMCertificateArn
       DomainName: !Ref DomainName
       EndpointConfiguration:
         Types: [REGIONAL]
