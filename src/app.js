@@ -3,22 +3,22 @@ let users = [
   {
     'id': 1,
     'Name': 'Adam',
-    'Admin': true  
+    'Admin': true
   },
   {
     'id': 2,
     'Name': 'Paul',
-    'Admin': true  
+    'Admin': true
   },
   {
     'id': 3,
     'Name': 'Steve',
-    'Admin': true  
+    'Admin': true
   },
   {
     'id': 4,
     'Name': 'Gary',
-    'Admin': true  
+    'Admin': true
   },
   {
     'id': 5,
@@ -50,39 +50,39 @@ let users = [
  * 
  */
 exports.lambdaHandler = async (event, context) => {
-    try {
-        console.log('Received event:', JSON.stringify(event, null, 2));
-        let responseBody = '';
-      
-        if (event.pathParameters && event.pathParameters.id) {
-          responseBody = getUser(parseInt(event.pathParameters.id));
-        } else {
-          responseBody = getAllUsers();
-        }
-      
-        return response = {
-          statusCode: 200,
-          body: JSON.stringify(responseBody),
-          headers: {
-            'Access-Control-Allow-Origin': '*'
-          }
-        }
-    } catch (err) {
-        console.log(err);
-        return err;
+  try {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+    let responseBody = '';
+
+    if (event.pathParameters && event.pathParameters.id) {
+      responseBody = getUser(parseInt(event.pathParameters.id));
+    } else {
+      responseBody = getAllUsers();
     }
+
+    return response = {
+      statusCode: 200,
+      body: JSON.stringify(responseBody),
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
 };
 
 const getAllUsers = () => {
-    return users;
-  };
-  
-  const getUser = (id) => {
-    let filteredUsers = users.filter(user => user.id === id);
+  return users;
+};
 
-    if(filteredUsers.length > 0) return filteredUsers
+const getUser = (id) => {
+  let filteredUsers = users.filter(user => user.id === id);
 
-    return {
-      'message': 'User not found!'
-    };
+  if (filteredUsers.length > 0) return filteredUsers
+
+  return {
+    'message': 'User not found!'
   };
+};
