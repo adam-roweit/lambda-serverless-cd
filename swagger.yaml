@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: '0.1'
-  title: ESOURCE Sample Response API
+  title: 'ESOURCE Sample Response API #1'
 schemes:
   - https
 paths:
