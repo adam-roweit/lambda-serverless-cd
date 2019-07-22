@@ -19,22 +19,6 @@ let users = [
     'id': 4,
     'Name': 'Gary',
     'Admin': true
-  },
-  {
-    'id': 5,
-    'Name': 'Test User'
-  },
-  {
-    'id': 6,
-    'Name': 'Test User 2'
-  },
-  {
-    'id': 7,
-    'Name': 'Test User 3'
-  },
-  {
-    'id': 8,
-    'Name': 'Test User 4'
   }
 ];
 /**
