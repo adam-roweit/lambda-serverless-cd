@@ -26,7 +26,7 @@ Parameters:
   SSMCertificateArn:
     Description: 'Arn of the esource certificate created via terraform.'
     Type: AWS::SSM::Parameter::Value<String>
-    Default: 'ESOURCE_api_certificate_arn'
+    Default: '/esource/config/ESOURCE_api_certificate_arn'
 
 Resources:
   GetUsersFunction:
